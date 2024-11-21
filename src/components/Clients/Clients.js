@@ -1,60 +1,146 @@
-import React from 'react';
-import { Container, Grid, Typography, Box, Paper, Avatar } from '@mui/material';
+import React, { useRef, useEffect } from 'react';
+import { Box, Typography, IconButton } from '@mui/material';
+import { ArrowForward, ArrowBack } from '@mui/icons-material';
+import { Card } from '@mui/joy'; // Assuming Card and AspectRatio are from Joy UI
+import AspectRatio from '@mui/joy/AspectRatio';
 
 const clients = [
-  { name: 'Tech Mahindra', logo: '/path/to/tech-mahindra.png' },
-  { name: 'Abacus', logo: '/path/to/abacus.png' },
-  { name: 'DortexAI', logo: '/path/to/dortexai.png' },
-  { name: 'Webtoks', logo: '/path/to/webtoks.png' },
-  { name: 'Webtuks', logo: '/path/to/webtuks.png' },
-  { name: 'Local Konnect', logo: '/path/to/local-konnect.png' }
+  { name: 'Tech Mahindra', logo: 'mahindra.png', description: 'Leading IT company' },
+  { name: 'Abacus', logo: 'abacus.png', description: 'Finance solutions provider' },
+  { name: 'DortexAI', logo: 'dortexai.png', description: 'AI-driven technology' },
+  { name: 'Webtoks', logo: 'webtoks.png', description: 'Web development solutions' },
+  { name: 'Webtuks', logo: 'webtuks.png', description: 'Cloud computing experts' },
+  { name: 'Local Konnect', logo: 'L&k.png', description: 'Local business network' },
+  { name: 'Tech Mahindra', logo: 'mahindra.png', description: 'Leading IT company' },
+  { name: 'Abacus', logo: 'abacus.png', description: 'Finance solutions provider' },
+  { name: 'DortexAI', logo: 'dortexai.png', description: 'AI-driven technology' },
+  { name: 'Webtoks', logo: 'webtoks.png', description: 'Web development solutions' },
+  { name: 'Webtuks', logo: 'webtuks.png', description: 'Cloud computing experts' },
+  { name: 'Local Konnect', logo: 'L&k.png', description: 'Local business network' },
+  { name: 'Tech Mahindra', logo: 'mahindra.png', description: 'Leading IT company' },
+  { name: 'Abacus', logo: 'abacus.png', description: 'Finance solutions provider' },
+  { name: 'DortexAI', logo: 'dortexai.png', description: 'AI-driven technology' },
+  { name: 'Webtoks', logo: 'webtoks.png', description: 'Web development solutions' },
+  { name: 'Webtuks', logo: 'webtuks.png', description: 'Cloud computing experts' },
+  { name: 'Local Konnect', logo: 'L&k.png', description: 'Local business network' },
 ];
 
-const testimonial = {
-  text: `I love how intuitive and efficient the platform is. We get access to a wide range of talented professionals, and the matching system helps us find the right fit for each role. It's become an essential part of our hiring strategy!`,
-  author: 'Sophia L., Founder of CareerWave Partners',
-  image: '/path/to/sophia-l.png'
-};
+function Clients() {
+  const scrollRef = useRef();
 
-const App = () => {
+  // Auto-scroll every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft += 200; // Scroll by 200px
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -200 : 200;
+      scrollRef.current.scrollLeft += scrollAmount;
+    }
+  };
+
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom align="center" sx={{ marginTop: 4 }}>
+    <Box sx={{ overflow: 'hidden', maxWidth: '1400px', margin: 'auto', position: 'relative', height: '60vh' }}>
+      <Typography
+        variant="h4"
+        gutterBottom
+        align="center"
+        sx={{
+          marginTop: 4,
+          fontSize: { xs: '1.5rem', sm: '1rem', md: '1.5rem' },
+        }}
+      >
         Our Clients
       </Typography>
-      <Grid container spacing={4} alignItems="center" justifyContent="center">
+
+      {/* Horizontal Scrollable Container */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          overflowX: 'auto',
+          scrollBehavior: 'smooth',
+          paddingBottom: '10px',
+          height: '70%',
+          marginLeft: '15px',
+          marginRight: '15px',
+          scrollbarWidth: 'none', // Hide scrollbar on Firefox
+          '&::-webkit-scrollbar': {
+            display: 'none', // Hide scrollbar on Chrome, Safari, etc.
+          },
+        }}
+        ref={scrollRef}
+      >
+        {/* Render Clients as Cards */}
         {clients.map((client, index) => (
-          <Grid item xs={6} sm={4} md={2} key={index}>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <img src={client.logo} alt={client.name} style={{ maxWidth: '100%', height: 'auto' }} />
-              <Typography variant="subtitle1" align="center">
-                {client.name}
-              </Typography>
-            </Box>
-          </Grid>
+          <Card
+            key={client.name}
+            variant="outlined"
+            sx={{
+              mx: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '500px', // Fixed card width
+              padding: 6,
+            }}
+          >
+            <AspectRatio ratio="1" sx={{ width: '100%', marginBottom: 2 }}>
+              <img
+                srcSet={`${client.logo}?h=120&fit=crop&auto=format&dpr=2 2x`}
+                src={`${client.logo}?h=120&fit=crop&auto=format`}
+                alt={client.name}
+                style={{ objectFit: 'contain' }}
+              />
+            </AspectRatio>
+            <Typography level="title-md" sx={{ fontSize: '1rem', textAlign: 'center' }}>
+              {client.name}
+            </Typography>
+            <Typography level="body-sm" sx={{ fontSize: '0.9rem', textAlign: 'center' }}>
+              {client.description}
+            </Typography>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
-      <Typography variant="h4" gutterBottom align="center" sx={{ marginTop: 4 }}>
-        Client Testimonials
-      </Typography>
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 4 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sm={4} md={2}>
-            <Avatar src={testimonial.image} alt="Sophia L." sx={{ width: 100, height: 100, margin: '0 auto' }} />
-          </Grid>
-          <Grid item xs={12} sm={8} md={10}>
-            <Typography variant="h6">
-              {testimonial.author}
-            </Typography>
-            <Typography variant="body1" sx={{ marginTop: 2 }}>
-              {testimonial.text}
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+      {/* Left Scroll Button */}
+      <IconButton
+        onClick={() => scroll('left')}
+        sx={{
+          position: 'absolute',
+          left: '-10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 1,
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        }}
+      >
+        <ArrowBack />
+      </IconButton>
+
+      {/* Right Scroll Button */}
+      <IconButton
+        onClick={() => scroll('right')}
+        sx={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 1,
+          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        }}
+      >
+        <ArrowForward />
+      </IconButton>
+    </Box>
   );
-};
+}
 
-export default App;
+export default Clients;

@@ -1,0 +1,9 @@
+.navbar-name{ 
+    position: absolute;
+    left: 10%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.navbar{
+    width: 100%;
+}
