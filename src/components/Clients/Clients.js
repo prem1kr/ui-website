@@ -68,7 +68,7 @@ function Clients() {
           overflowX: 'auto',
           scrollBehavior: 'smooth',
           paddingBottom: '10px',
-          height: '70%',
+          height: '90%',
           marginLeft: '15px',
           marginRight: '15px',
           scrollbarWidth: 'none', // Hide scrollbar on Firefox
@@ -88,7 +88,7 @@ function Clients() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              width: '500px', // Fixed card width
+              width: '600px', // Fixed card width
               padding: 6,
             }}
           >

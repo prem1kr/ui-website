@@ -90,7 +90,8 @@ const VerificationPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh", // Ensures full viewport height without scroll
+        
+        height: "100vh",
         background: "linear-gradient(45deg, #6a11cb 0%, #2575fc 100%)",
         backgroundSize: "400% 400%",
         animation: `${gradientAnimation} 15s ease infinite`, // Apply background animation
@@ -166,6 +167,7 @@ const VerificationPage = () => {
               fontWeight: "bold",
               mb: 2,
               width: "100%",
+
               padding: "12px",
               backgroundColor: "#007BFF",
               boxShadow: "0 4px 15px rgba(0, 123, 255, 0.2)",
@@ -182,7 +184,7 @@ const VerificationPage = () => {
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ mb: 2, color: "#555" }}
+            sx={{ mb: 2, color: "#555"  }}
           >
             {timer > 0
               ? `Resend OTP in ${timer} seconds`

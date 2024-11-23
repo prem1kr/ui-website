@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './Navbar.css';
+import logo from './logo.png';  // Import the logo file
+
 import {
   AppBar,
   Toolbar,
@@ -19,7 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 
 // Hide AppBar on scroll
 function HideOnScroll(props) {
@@ -35,7 +37,17 @@ function HideOnScroll(props) {
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate
+  const [marginTop, setMarginTop] = useState(64); // Default AppBar height for small screens
+  const navigate = useNavigate();
+  const location = useLocation(); // Get the current path
+
+  useEffect(() => {
+    // Adjust margin-top dynamically based on AppBar height
+    const appBarElement = document.querySelector(".MuiAppBar-root");
+    if (appBarElement) {
+      setMarginTop(appBarElement.offsetHeight);
+    }
+  }, []);
 
   // Menu items with paths
   const menuItems = [
@@ -46,10 +58,13 @@ const Navbar = () => {
     { label: "Contact Us", path: "/contact" },
   ];
 
-  // Handle drawer toggle
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  // Filter out the Home button if on the Home page
+  const filteredMenuItems =
+    location.pathname === "/"
+      ? menuItems.filter((item) => item.label !== "Home")
+      : menuItems;
+
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   return (
     <>
@@ -58,7 +73,7 @@ const Navbar = () => {
           position="fixed"
           color="default"
           sx={{
-            backgroundColor: "#ffffff", // Set background to white
+            backgroundColor: "#ffffff",
             boxShadow: "none",
             padding: 0,
             zIndex: 1300,
@@ -68,7 +83,8 @@ const Navbar = () => {
             {/* Logo */}
             <Box
               component="img"
-              src="https://s3-alpha-sig.figma.com/img/93ff/7624/fed4a22252b20edf845883d254431e04?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=EvfOh~JFg3WG7r0JLerFJTLC36rvOEGqzjmL7B-0ZCFjmyBClPZKUUAQe4RK960Rfkd9bRFriN8GH-~HNnh~lPCZ1Kq0i5xSFuuF-KqxybV49yT2QrUhLe2uVFM17~cihLo6vJmpyZcKLiaZQ6kCyT~E6OC1MfnBuej-qXZz4s~hN8i1WSTd3ZymUDasMqPFkNs~tcPl3dXYFwU3kwE7IJkoU~SpkgjsMY8uxpbCoTecsqJtqZRz1qpnG9XanWQlLPeCJqR-RrVxUMbCSKWMO6rgITgHTww6HmBIjfRCQLWa88Tc0BHCscCtlkRpzdhARLGT-GMzre8c8Ggrzd9xDg__"
+              src={logo}  // Use the imported logo variable
+
               alt="Logo"
               sx={{ width: 50, height: 50, marginRight: 1 }}
             />
@@ -84,7 +100,7 @@ const Navbar = () => {
                 justifyContent: "center",
               }}
             >
-              {menuItems.map((item) => (
+              {filteredMenuItems.map((item) => (
                 <Button
                   key={item.label}
                   sx={{
@@ -132,7 +148,7 @@ const Navbar = () => {
                     backgroundColor: "#0056b3",
                   },
                 }}
-                onClick={() => navigate("/login")} // Navigate to LoginPage
+                onClick={() => navigate("/login")}
               >
                 Login
               </Button>
@@ -164,12 +180,12 @@ const Navbar = () => {
         }}
       >
         <List>
-          {menuItems.map((item) => (
+          {filteredMenuItems.map((item) => (
             <ListItem key={item.label} disablePadding>
               <ListItemButton
                 onClick={() => {
-                  navigate(item.path); // Navigate to respective path
-                  handleDrawerToggle(); // Close the drawer
+                  navigate(item.path);
+                  handleDrawerToggle();
                 }}
                 sx={{
                   "&:hover": {
@@ -184,6 +200,16 @@ const Navbar = () => {
           ))}
         </List>
       </Drawer>
+
+      {/* Main content with dynamic margin */}
+      <Box
+        sx={{
+          marginTop: location.pathname === "/" ? 0 : `${marginTop}px`, // No margin for Home
+          padding: 2, // Add some padding for content
+        }}
+      >
+        {/* Add your page content here */}
+      </Box>
     </>
   );
 };
