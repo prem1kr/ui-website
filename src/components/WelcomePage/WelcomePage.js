@@ -7,7 +7,7 @@ const WelcomePage = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#00000040', // Light blue background
+        backgroundColor: '#D1ECFF', // Light blue background
         padding: { xs: '1rem', md: '5rem' }, // Adjusted padding for smaller screens
         minHeight: '85vh',
         display: 'flex',
