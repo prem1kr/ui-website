@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './Navbar.css';
-import logo from './logo.png';  // Import the logo file
-
+import logo from "./logo.png"; // Import the logo file
 import {
   AppBar,
   Toolbar,
@@ -21,7 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Hide AppBar on scroll
 function HideOnScroll(props) {
@@ -29,7 +27,7 @@ function HideOnScroll(props) {
   const trigger = useScrollTrigger();
 
   return (
-    <Slide appear={false} direction="down" in={!trigger}>
+    <Slide appear={false} direction="scrolldown" in={!trigger}>
       {children}
     </Slide>
   );
@@ -39,7 +37,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [marginTop, setMarginTop] = useState(64); // Default AppBar height for small screens
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current path
+  const location = useLocation();
 
   useEffect(() => {
     // Adjust margin-top dynamically based on AppBar height
@@ -75,24 +73,38 @@ const Navbar = () => {
           sx={{
             backgroundColor: "#ffffff",
             boxShadow: "none",
-            padding: 0,
             zIndex: 1300,
+            padding: { xs: "0 8px", md: "0 16px" },
           }}
         >
-          <Toolbar sx={{ justifyContent: "space-between", padding: 0 }}>
+          <Toolbar sx={{ justifyContent: "space-between" }}>
             {/* Logo */}
             <Box
               component="img"
-              src={logo}  // Use the imported logo variable
-
+              src={logo}
               alt="Logo"
-              sx={{ width: 50, height: 50, marginRight: 1 }}
+              sx={{
+                width: { xs: 40, md: 50 },
+                height: { xs: 40, md: 50 },
+                marginRight: 1,
+                cursor: "pointer", // Makes the logo clickable
+              }}
+              onClick={() => navigate("/")} // Navigate to Home when clicked
             />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }} className="navbar-name">
+
+            {/* "EASY JOB" Text */}
+            <Typography
+              variant={{ xs: "subtitle1", md: "h6" }}
+              sx={{
+                fontWeight: "bold",
+                cursor: "pointer", // Makes the text clickable
+              }}
+              onClick={() => navigate("/")} // Navigate to Home when clicked
+            >
               EASY JOB
             </Typography>
 
-            {/* Center menu links for desktop */}
+            {/* Desktop Menu */}
             <Box
               sx={{
                 display: { xs: "none", md: "flex" },
@@ -105,14 +117,14 @@ const Navbar = () => {
                   key={item.label}
                   sx={{
                     color: "black",
-                    fontWeight: "500",
+                    fontWeight: 500,
                     "&:hover": {
                       color: "#007BFF",
                       transform: "scale(1.1)",
                       transition: "all 0.3s",
                     },
                   }}
-                  onClick={() => navigate(item.path)} // Navigate to respective path
+                  onClick={() => navigate(item.path)}
                 >
                   {item.label}
                 </Button>
@@ -125,7 +137,6 @@ const Navbar = () => {
                 display: "flex",
                 gap: 1,
                 alignItems: "center",
-                color: "blue",
               }}
             >
               <IconButton color="primary">
@@ -139,9 +150,7 @@ const Navbar = () => {
               </IconButton>
               <Button
                 variant="contained"
-                color="primary"
                 sx={{
-                  textTransform: "none",
                   fontWeight: "bold",
                   backgroundColor: "#007BFF",
                   "&:hover": {
@@ -154,9 +163,8 @@ const Navbar = () => {
               </Button>
             </Box>
 
-            {/* Hamburger menu for mobile */}
+            {/* Hamburger Menu */}
             <IconButton
-              color="inherit"
               edge="end"
               onClick={handleDrawerToggle}
               sx={{ display: { xs: "block", md: "none" } }}
@@ -167,17 +175,11 @@ const Navbar = () => {
         </AppBar>
       </HideOnScroll>
 
-      {/* Drawer for mobile */}
+      {/* Drawer for Mobile */}
       <Drawer
         anchor="left"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        sx={{
-          "& .MuiDrawer-paper": {
-            width: 240,
-            backgroundColor: "#f4f4f4",
-          },
-        }}
       >
         <List>
           {filteredMenuItems.map((item) => (
@@ -201,15 +203,12 @@ const Navbar = () => {
         </List>
       </Drawer>
 
-      {/* Main content with dynamic margin */}
       <Box
         sx={{
-          marginTop: location.pathname === "/" ? 0 : `${marginTop}px`, // No margin for Home
-          padding: 2, // Add some padding for content
+          marginTop: `${marginTop}px`,
+          display:"none",
         }}
-      >
-        {/* Add your page content here */}
-      </Box>
+      ></Box>
     </>
   );
 };

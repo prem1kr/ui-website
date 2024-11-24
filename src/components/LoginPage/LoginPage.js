@@ -29,9 +29,9 @@ function ModeToggle() {
       }}
       sx={{
         position: "absolute",
-        top: "10px",
         right: "10px",
         zIndex: 10,
+        opacity: 0,
       }}
     >
       <Option value="system">System</Option>
@@ -46,11 +46,6 @@ const gradientShift = keyframes`
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-`;
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
 `;
 
 const LoginPage = () => {
@@ -81,158 +76,143 @@ const LoginPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #8e44ad, #3498db, #1abc9c, #f39c12)",
           backgroundSize: "300% 300%",
-          animation: `${gradientShift} 8s ease infinite`, // Gradient animation
+          animation: `${gradientShift} 8s ease infinite`,
           position: "relative",
-          overflow: "hidden",
+          overflow: "hidden", // Prevent scrolling inside this container
+          padding: 2,
         }}
       >
-        {/* Floating Circles */}
         <Box
           sx={{
-            position: "absolute",
-            width: 150,
-            height: 150,
-            borderRadius: "50%",
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-            top: "20%",
-            left: "10%",
-            animation: `${float} 4s ease-in-out infinite`,
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            width: 200,
-            height: 200,
-            borderRadius: "50%",
-            backgroundColor: "rgba(255, 255, 255, 0.15)",
-            bottom: "15%",
-            right: "10%",
-            animation: `${float} 6s ease-in-out infinite`,
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            width: 100,
-            height: 100,
-            borderRadius: "50%",
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
-            bottom: "30%",
-            left: "20%",
-            animation: `${float} 5s ease-in-out infinite`,
-          }}
-        />
-
-        {/* Login Form */}
-        <Sheet
-          sx={{
-            width: "100%",
-            maxWidth: 400,
-            padding: 4,
-            borderRadius: "md",
-            boxShadow: "lg",
-            backgroundColor: "background.level1",
             display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            textAlign: "center",
+            flexDirection: { xs: "column", sm: "row" }, // Stack form and image on small screens
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100vh",
+            gap: { xs: 2, sm: "5%", md: "10%" }, // Adjust gap based on screen size
+            overflow: "hidden", // Prevent scrolling inside this container
           }}
-          variant="soft"
         >
-          <Typography level="h4" component="h1" sx={{ mb: 1 }}>
-            Welcome!
-          </Typography>
-          <Typography level="body-sm" sx={{ color: "text.secondary", mb: 2 }}>
-            Sign in to continue.
-          </Typography>
-
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-              sx={{
-                borderColor: "neutral.outlinedBorder",
-                "&:hover": { borderColor: "primary.solidHoverBg" },
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              name="password"
-              type="password"
-              placeholder="password"
-              sx={{
-                borderColor: "neutral.outlinedBorder",
-                "&:hover": { borderColor: "primary.solidHoverBg" },
-              }}
-            />
-          </FormControl>
-
-          <Button
+          {/* Left Side Image */}
+          <Box
+            component="img"
+            src="./logo.png" // Replace with your image path
+            alt="Login Illustration"
             sx={{
-              mt: 2,
+              objectFit: "cover",
+              borderRadius: "8px",
+              backgroundColor: "white",
+              width: { xs: "80%", sm: "400px", md: "500px", lg: "600px" }, // Responsive image width
+              height: { xs: "250px", sm: "300px", md: "400px", lg: "500px" }, // Responsive image height
+              maxWidth: "100%", // Prevent image overflow
+            }}
+          />
+
+          {/* Login Form */}
+          <Sheet
+            sx={{
               width: "100%",
-              backgroundColor: "primary.solidBg",
-              "&:hover": {
-                backgroundColor: "primary.solidHoverBg",
-                transform: "scale(1.05)",
-                transition: "transform 0.3s ease",
-              },
+              maxWidth: 350,
+              padding: { xs: 3, sm: 4, md: 5 }, // Responsive padding
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "transparent",
+              gap: 2,
+              textAlign: "center",
+              marginTop: { xs: 2, sm: "5%" }, // Adjust margin top for smaller screens
             }}
+            variant="soft"
           >
-            Log in
-          </Button>
+            <Typography level="h3" component="h1" sx={{ mb: 1 }}>
+              Login
+            </Typography>
 
-          {/* Forgot Password Button */}
-          <Button
-            variant="text"
-            sx={{
-              mt: 1,
-              color: "text.secondary",
-              textTransform: "none",
-              "&:hover": {
-                color: "primary.solidBg",
-                transition: "color 0.3s ease",
-              },
-            }}
-            onClick={() => navigate("/forgot-password")}
-          >
-            Forgot Password?
-          </Button>
+            <FormControl>
+              <FormLabel>Email</FormLabel>
+              <Input
+                name="email"
+                type="email"
+                placeholder="johndoe@email.com"
+                sx={{
+                  borderColor: "neutral.outlinedBorder",
+                  "&:hover": { borderColor: "primary.solidHoverBg" },
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Password</FormLabel>
+              <Input
+                name="password"
+                type="password"
+                placeholder="password"
+                sx={{
+                  borderColor: "neutral.outlinedBorder",
+                  "&:hover": { borderColor: "primary.solidHoverBg" },
+                }}
+              />
+            </FormControl>
 
-          <Typography
-            fontSize="sm"
-            sx={{
-              alignSelf: "center",
-              mt: 2,
-              color: "text.secondary",
-              "&:hover": {
-                color: "primary.solidBg",
-                transition: "color 0.3s ease",
-              },
-            }}
-          >
-            Don't have an account?{" "}
             <Button
-              variant="text"
-              onClick={() => navigate("/signup")}
               sx={{
-                color: "primary.solidBg",
-                textTransform: "none",
-                padding: 0,
-                minWidth: 0,
+                mt: 2,
+                width: "100%",
+                backgroundColor: "primary.solidBg",
+                "&:hover": {
+                  backgroundColor: "primary.solidHoverBg",
+                  transform: "scale(1.05)",
+                  transition: "transform 0.3s ease",
+                },
               }}
             >
-              Sign up
+              Log in
             </Button>
-          </Typography>
-        </Sheet>
+
+            <Button
+              variant="text"
+              sx={{
+                mt: 1,
+                color: "text.secondary",
+                textTransform: "none",
+                "&:hover": {
+                  color: "primary.solidBg",
+                  transition: "color 0.3s ease",
+                },
+              }}
+              onClick={() => navigate("/forgot-password")}
+            >
+              Forgot Password?
+            </Button>
+
+            <Typography
+              fontSize="sm"
+              sx={{
+                alignSelf: "center",
+                mt: 1,
+                color: "text.secondary",
+                "&:hover": {
+                  color: "primary.solidBg",
+                  transition: "color 0.3s ease",
+                },
+              }}
+            >
+              Don't have an account?{" "}
+              <Button
+                variant="text"
+                onClick={() => navigate("/signup")}
+                sx={{
+                  color: "primary.solidBg",
+                  textTransform: "none",
+                  padding: 0,
+                  minWidth: 0,
+                }}
+              >
+                Sign up
+              </Button>
+            </Typography>
+          </Sheet>
+        </Box>
       </Box>
     </CssVarsProvider>
   );

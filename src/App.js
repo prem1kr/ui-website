@@ -3,8 +3,6 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 import WelcomePage from './components/WelcomePage/WelcomePage';
-import CompanyProcess from './components/CompanyProcess/CompanyProcess';
-import CanidateProcess from './components/CanidateProcess/CanidateProcess';
 import Opportunity from './components/Opportunity/Opportunity';
 import EasyJobApp from './components/EasyJobApp/EasyJobApp';
 import ContactUs from './components/ContactUs/ContactUs'
@@ -17,6 +15,8 @@ import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
 import { Home } from '@mui/icons-material';
 import VerificationPage from './components/VerificationPage/VerificationPage';
+import Process from './components/Process/Process';
+import TrustedPage from './components/TrustedPage/TrustedPages';
 
 
 const App = () => {
@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About/>} />
-        <Route path="/services" element={<CanidateProcess/>} />
+        <Route path="/services" element={<Process/>} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/verification" element={<VerificationPage/>} />
@@ -41,12 +41,12 @@ const App = () => {
     <Navbar/>
     <WelcomePage/>
      <About/>
-    <CompanyProcess/>
-    <CanidateProcess/>
+     <Process/>
     <Opportunity/>
      <Clients/>
      <ClientsTestimonial/>
      <CanidateTestimonial/>
+     <TrustedPage/>
      <EasyJobApp/>
      <ContactUs/>
      <Footer/>

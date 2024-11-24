@@ -1,88 +1,21 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-  Card,
-  CardContent,
-} from "@mui/material";
-import { keyframes } from '@mui/system';
-
-// Keyframe animation for fading in
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-// Keyframe animation for background gradient
-const gradientAnimation = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`;
+import React, { useEffect } from "react";
+import { Box, Typography, Button, TextField, Grid, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const VerificationPage = () => {
-  const [otp, setOtp] = useState(""); // To store OTP input
-  const [timer, setTimer] = useState(60); // Timer countdown
-  const [resendDisabled, setResendDisabled] = useState(true); // Disable resend initially
+  const navigate = useNavigate(); // Create a navigate instance
 
-  // Handle OTP input
-  const handleChange = (event) => {
-    const { value } = event.target;
-    if (/^\d{0,6}$/.test(value)) {
-      setOtp(value);
-    }
-  };
-
-  // Handle OTP submission
-  const handleVerify = () => {
-    if (otp.length === 6) {
-      console.log("Verifying OTP:", otp);
-      // Add verification logic here (e.g., API call)
-    } else {
-      alert("Please enter a valid 6-digit OTP.");
-    }
-  };
-
-  // Handle resend OTP
-  const handleResend = () => {
-    console.log("Resending OTP...");
-    setTimer(60);
-    setResendDisabled(true);
-  };
-
-  // Timer countdown effect
   useEffect(() => {
-    if (timer > 0) {
-      const countdown = setTimeout(() => setTimer(timer - 1), 1000);
-      return () => clearTimeout(countdown);
-    } else {
-      setResendDisabled(false);
-    }
-
-    // Prevent scrolling on the body and html elements
-    document.body.style.overflow = "hidden";
+    // Prevent scrolling by applying overflow: hidden to both html and body
     document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 
+    // Clean up to reset overflow style when the component is unmounted
     return () => {
-      document.body.style.overflow = "auto"; // Restore scroll on cleanup
       document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
     };
-  }, [timer]);
+  }, []);
 
   return (
     <Box
@@ -90,125 +23,141 @@ const VerificationPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        
         height: "100vh",
-        background: "linear-gradient(45deg, #6a11cb 0%, #2575fc 100%)",
-        backgroundSize: "400% 400%",
-        animation: `${gradientAnimation} 15s ease infinite`, // Apply background animation
+        background: "linear-gradient(to bottom, #ffffff, #f0f4f8)",
         overflow: "hidden", // Prevent scrolling on the page
       }}
     >
-      <Card
+      <Grid
+        container
         sx={{
-          width: 400,
-          padding: 3,
-          boxShadow: 3,
-          animation: `${fadeIn} 0.8s ease-out`,
-          overflow: "hidden", // Prevent scroll within the card
+          width: "100%",
+          borderRadius: "8px",
+          overflow: "hidden",
+          backgroundColor: "white",
         }}
       >
-        <CardContent sx={{ padding: 0 }}>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            sx={{ mb: 2, textAlign: "center", color: "#333" }}
-          >
-            Verify Your Account
+        {/* Left Section with Image */}
+        <Grid
+          item
+          xs={8}
+          md={5}
+          sx={{
+            display: "flex",
+            flexWrap: "wrap", // Allow the input fields to wrap on smaller screens
+            justifyContent: "center", // Center image on mobile
+            alignItems: "center",
+            backgroundColor: "transparent",
+            position: "relative",
+            left: "15%",
+            padding: { xs: "20px", sm: "20px", md: "40px" }, // Adjust padding for better spacing
+          }}
+        >
+          <img
+            src="./verification.png" // Replace with the correct path to your image
+            alt="Verification"
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              height: "auto",
+            }}
+          />
+        </Grid>
+
+        {/* Right Section with Form */}
+        <Grid
+          item
+          xs={12}
+          md={7} // Take up more space on larger screens
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "1px",
+            width: "60%",
+            maxWidth: "600px",
+            textAlign: "center",
+            justifyContent: "center",
+            height: "80%", // Ensure the form is vertically centered
+            position: "relative",
+            top: "10%",
+            overflow: "hidden", // Prevent scrolling within the form area
+          }}
+        >
+          <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
+            Verification
+          </Typography>
+          <Typography sx={{ mb: 4, color: "gray" }}>
+            Please enter the verification code
+            <br />
+            Sent to <strong>Gmail</strong>
           </Typography>
 
-          <Typography
-            variant="body1"
-            sx={{ mb: 3, textAlign: "center", color: "#555" }}
+          {/* Code Input */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 1,
+              flexWrap: "wrap", // Allow the input fields to wrap on smaller screens
+            }}
           >
-            Please enter the 6-digit OTP sent to your registered email or phone number.
-          </Typography>
-
-          {/* OTP Input */}
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ mb: 2 }}
-          >
-            <TextField
-              variant="outlined"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={handleChange}
-              inputProps={{
-                maxLength: 6,
-                style: {
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  letterSpacing: "0.5rem",
-                  padding: "10px",
-                },
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "12px",
-                  backgroundColor: "#fff",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                  transition: "all 0.3s ease-in-out",
-                },
-                "& .MuiOutlinedInput-root:focus": {
-                  boxShadow: "0 0 10px rgba(0, 123, 255, 0.5)", // Focus shadow effect
-                },
-              }}
-            />
-          </Stack>
+            {Array(6)
+              .fill("")
+              .map((_, index) => (
+                <TextField
+                  key={index}
+                  variant="outlined"
+                  inputProps={{
+                    maxLength: 1,
+                    style: {
+                      textAlign: "center",
+                      width: "20px",
+                      height: "20px",
+                      fontSize: "15px",
+                    },
+                  }}
+                />
+              ))}
+          </Box>
 
           {/* Verify Button */}
           <Button
             variant="contained"
-            color="primary"
-            onClick={handleVerify}
             sx={{
-              textTransform: "none",
-              fontWeight: "bold",
-              mb: 2,
-              width: "100%",
-
-              padding: "12px",
-              backgroundColor: "#007BFF",
-              boxShadow: "0 4px 15px rgba(0, 123, 255, 0.2)",
+              backgroundColor: "#002855",
+              color: "#fff",
+              padding: "10px 10px",
+              fontSize: "16px",
+              margin: "10px",
               "&:hover": {
                 backgroundColor: "#0056b3",
-                boxShadow: "0 6px 20px rgba(0, 123, 255, 0.3)",
               },
+              width: "60%", // Ensure button stretches across the form on mobile
             }}
           >
-            Verify
+            Verify Now
           </Button>
 
-          {/* Timer and Resend Section */}
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ mb: 2, color: "#555"  }}
-          >
-            {timer > 0
-              ? `Resend OTP in ${timer} seconds`
-              : "Didn't receive the OTP?"}
-          </Typography>
-
-          <Button
-            variant="text"
-            color="primary"
-            disabled={resendDisabled}
-            onClick={handleResend}
-            sx={{
-              textTransform: "none",
-              fontWeight: "bold",
-              color: resendDisabled ? "#bbb" : "#007BFF",
-              "&:hover": {
-                color: resendDisabled ? "#bbb" : "#0056b3",
-              },
-            }}
-          >
-            Resend OTP
-          </Button>
-        </CardContent>
-      </Card>
+          {/* Resend Code and Login Links */}
+          <Box sx={{ mt: 3, textAlign: "center" }}>
+            <Link href="#" underline="hover" sx={{ color: "#0056b3", mb: 1 }}>
+              Resend code
+            </Link>
+            <Typography sx={{ mt: 1, color: "gray" }}>
+              Already have an account?{" "}
+              <Link
+                href="#"
+                underline="hover"
+                sx={{ color: "#0056b3" }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Link>
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

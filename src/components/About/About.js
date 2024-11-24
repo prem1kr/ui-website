@@ -6,8 +6,12 @@ const About = () => {
     <Box
       sx={{
         backgroundColor: "#FFFFFF",
-        padding: { xs: "2rem", md: "4rem" },
+        padding: { xs: "2rem", md: "4rem" }, // Adjust padding for small and large screens
         minHeight: "100vh",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center"
+
       }}
     >
       <Grid
@@ -21,15 +25,16 @@ const About = () => {
       >
         {/* Left Section - Image */}
         <Grid item xs={12} md={6}>
-          <CardMedia 
+          <CardMedia
             component="img"
-            image='about.png' // Replace with your image URL
+            image="about.png" // Replace with your image URL
             alt="Who are we?"
             sx={{
               borderRadius: "1rem",
               boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
               width: "100%",
               height: "auto",
+              objectFit: "cover", // Ensures the image covers the section without distorting
             }}
           />
         </Grid>
@@ -42,8 +47,9 @@ const About = () => {
               fontWeight: "bold",
               color: "#333",
               marginBottom: "1rem",
-              textAlign: { xs: "center", md: "left" }, 
-            }} 
+              textAlign: { xs: "center", md: "left" }, // Center text for mobile
+              fontSize: { xs: "1.8rem", md: "2.5rem" }, // Adjust font size for mobile
+            }}
           >
             Who are we?
           </Typography>
@@ -54,6 +60,7 @@ const About = () => {
               lineHeight: "1.8",
               marginBottom: "1.5rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
             }}
           >
             "We are a modern recruitment platform dedicated to bridging the gap
@@ -69,6 +76,7 @@ const About = () => {
               color: "#333",
               marginBottom: "0.5rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1.2rem", md: "1.5rem" }, // Adjust font size for mobile
             }}
           >
             For Companies
@@ -80,6 +88,7 @@ const About = () => {
               lineHeight: "1.8",
               marginBottom: "1rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
             }}
           >
             "For companies, we offer an end-to-end hiring solution that
@@ -96,6 +105,7 @@ const About = () => {
               color: "#333",
               marginBottom: "0.5rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1.2rem", md: "1.5rem" }, // Adjust font size for mobile
             }}
           >
             For Candidates
@@ -107,6 +117,7 @@ const About = () => {
               lineHeight: "1.8",
               marginBottom: "1rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
             }}
           >
             "For job seekers, our platform provides personalized job
@@ -122,6 +133,7 @@ const About = () => {
               color: "#333",
               marginBottom: "0.5rem",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1.2rem", md: "1.5rem" }, // Adjust font size for mobile
             }}
           >
             Our Vision
@@ -132,6 +144,7 @@ const About = () => {
               color: "#555",
               lineHeight: "1.8",
               textAlign: { xs: "center", md: "left" },
+              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
             }}
           >
             "With our innovative approach, we aim to create a seamless

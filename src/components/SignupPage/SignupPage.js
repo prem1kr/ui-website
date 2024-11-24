@@ -34,8 +34,8 @@ const SignupPage = () => {
             padding: 0,
             width: "100%",
             height: "100%",
-            overflow: "hidden", // Prevent scrolling
             fontFamily: "Roboto, sans-serif",
+            overflow: "hidden", // Prevent scrolling on the page
           },
         }}
       />
@@ -46,126 +46,110 @@ const SignupPage = () => {
           width: "100%",
           height: "100vh",
           display: "flex",
+          flexDirection: { xs: "column", sm: "row" }, // Stack form and image on mobile, side by side on larger screens
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #8e44ad, #3498db)",
-          overflow: "hidden",
-          position: "relative",
+          overflow: "hidden", // Prevent scrolling within this container
+          gap: { xs: 2, sm: "5%", md: "10%" }, // Adjust gap between image and form based on screen size
         }}
       >
-        {/* Animated Circle Decorations */}
+        {/* Left Image */}
         <Box
+          component="img"
+          src="./logo.png" // Replace with your image path
+          alt="Signup Illustration"
           sx={{
-            position: "absolute",
-            width: 200,
-            height: 200,
-            borderRadius: "50%",
-            background: "rgba(255, 255, 255, 0.2)",
-            animation: "float 6s infinite ease-in-out",
-            top: "10%",
-            left: "20%",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            width: 300,
-            height: 300,
-            borderRadius: "50%",
-            background: "rgba(255, 255, 255, 0.1)",
-            animation: "float 8s infinite ease-in-out",
-            bottom: "15%",
-            right: "15%",
+            objectFit: "cover",
+            borderRadius: "8px",
+            backgroundColor: "white",
+            width: { xs: "80%", sm: "450px", md: "500px", lg: "600px" }, // Responsive image width
+            height: { xs: "250px", sm: "300px", md: "400px", lg: "500px" }, // Responsive image height
+            maxWidth: "100%", // Prevent image overflow
           }}
         />
 
         {/* Signup Form */}
         <Sheet
           sx={{
-            width: "90%",
-            maxWidth: 400,
-            padding: 4,
-            borderRadius: "md",
-            boxShadow: "lg",
-            backgroundColor: "background.level1",
+            width: "100%",
+            maxWidth: 350,
+            padding: { xs: 4, sm: 4, md: 5 }, // Responsive padding
             display: "flex",
             flexDirection: "column",
+            backgroundColor: "transparent",
             gap: 2,
             textAlign: "center",
             animation: `${fadeInUp} 1s ease-out`,
+            marginTop: { xs: 2, sm: 0 }, // Adjust margin top on smaller screens
           }}
           variant="soft"
         >
-          <Typography level="h4" component="h1" sx={{ mb: 1 }}>
-            Create Account
-          </Typography>
-          <Typography level="body-sm" sx={{ color: "text.secondary", mb: 2 }}>
-            Join us to explore endless possibilities!
-          </Typography>
+          {/* Signup Form Content */}
+          <Box sx={{ flex: 1 }}>
+            <Typography level="h3" component="h1" sx={{ mb: 1 }}>
+              Sign Up
+            </Typography>
+            <Typography level="body-sm" sx={{ color: "text.secondary", mb: 2 }}></Typography>
 
-          <FormControl>
-            
-          </FormControl>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              name="email"
-              type="email"
-              placeholder="johndoe@email.com"
-              sx={{
-                borderColor: "neutral.outlinedBorder",
-                "&:hover": { borderColor: "primary.solidHoverBg" },
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              name="password"
-              type="password"
-              placeholder="Create a password"
-              sx={{
-                borderColor: "neutral.outlinedBorder",
-                "&:hover": { borderColor: "primary.solidHoverBg" },
-              }}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel >
-              <input type="checkbox"/>
-              Are you agree term&conditions
-            </FormLabel>
-           
-          </FormControl>
-          <Button
-            sx={{
-              mt: 2,
-              width: "100%",
-              backgroundColor: "primary.solidBg",
-              "&:hover": { backgroundColor: "primary.solidHoverBg" },
-            }}
-            onClick={() => navigate("/verification")} // Navigate to VerificationPage
-          >
-            Sign Up
-          </Button>
-          <Typography
-            fontSize="sm"
-            sx={{ alignSelf: "center", mt: 2, color: "text.secondary" }}
-          >
-            Already have an account?{" "}
+            <FormControl>
+              <FormLabel>Email</FormLabel>
+              <Input
+                name="email"
+                type="email"
+                placeholder="johndoe@email.com"
+                sx={{
+                  borderColor: "neutral.outlinedBorder",
+                  "&:hover": { borderColor: "primary.solidHoverBg" },
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Password</FormLabel>
+              <Input
+                name="password"
+                type="password"
+                placeholder="Create a password"
+                sx={{
+                  borderColor: "neutral.outlinedBorder",
+                  "&:hover": { borderColor: "primary.solidHoverBg" },
+                }}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>
+                <input type="checkbox" /> I agree to the terms and conditions
+              </FormLabel>
+            </FormControl>
             <Button
-              variant="text"
-              onClick={() => navigate("/login")} // Navigate to LoginPage
               sx={{
-                color: "primary.solidBg",
-                textTransform: "none",
-                padding: 0,
-                minWidth: 0,
+                mt: 2,
+                width: "100%",
+                backgroundColor: "primary.solidBg",
+                "&:hover": { backgroundColor: "primary.solidHoverBg" },
               }}
+              onClick={() => navigate("/verification")} // Navigate to VerificationPage
             >
-              Log in
+              Sign Up
             </Button>
-          </Typography>
+            <Typography
+              fontSize="sm"
+              sx={{ alignSelf: "center", mt: 2, color: "text.secondary" }}
+            >
+              Already have an account?{" "}
+              <Button
+                variant="text"
+                onClick={() => navigate("/login")} // Navigate to LoginPage
+                sx={{
+                  color: "primary.solidBg",
+                  textTransform: "none",
+                  padding: 0,
+                  minWidth: 0,
+                }}
+              >
+                Log in
+              </Button>
+            </Typography>
+          </Box>
         </Sheet>
       </Box>
     </CssVarsProvider>
