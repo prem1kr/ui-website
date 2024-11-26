@@ -4,6 +4,7 @@ import { Box, Grid,  CardMedia } from "@mui/material";
 const Process = () => {
   return (
     <Box
+    id="services" // ID to scroll to this section
       sx={{
         backgroundColor: "white",
         padding: { xs: "1rem", sm: "4rem", md: "6rem" },

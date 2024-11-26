@@ -66,7 +66,9 @@ function ClientsTestimonial() {
   };
 
   return (
-    <Box sx={{ overflow: 'hidden', maxWidth: '1400px', margin: 'auto', position: 'relative', height: '70vh' }}>
+    <Box
+
+     sx={{ overflow: 'hidden', maxWidth: '1400px', margin: 'auto', position: 'relative', height: '70vh' }}>
       <Typography
         variant="h4"
         gutterBottom

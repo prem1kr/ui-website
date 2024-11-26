@@ -47,13 +47,14 @@ const Navbar = () => {
     }
   }, []);
 
-  // Menu items with paths
+  // Menu items with IDs
   const menuItems = [
-    { label: "Home", path: "/" },
-    { label: "About Us", path: "/about" },
-    { label: "Services", path: "/services" },
-    { label: "Clients", path: "/clients" },
-    { label: "Contact Us", path: "/contact" },
+    { label: "Home", id: "/" },
+    { label: "About Us", id: "about" },
+    { label: "Services", id: "services" },
+    { label: "Clients", id: "clients" },
+    { label: "Contact Us", id: "contact" },
+    { label: "Testimonial", id: "testimonial" },
   ];
 
   // Filter out the Home button if on the Home page
@@ -63,6 +64,21 @@ const Navbar = () => {
       : menuItems;
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handleHomeClick = () => {
+    // Navigate to the home page directly
+    navigate("/");
+  };
 
   return (
     <>
@@ -89,7 +105,7 @@ const Navbar = () => {
                 marginRight: 1,
                 cursor: "pointer", // Makes the logo clickable
               }}
-              onClick={() => navigate("/")} // Navigate to Home when clicked
+              onClick={handleHomeClick} // Navigate to Home when clicked
             />
 
             {/* "EASY JOB" Text */}
@@ -99,7 +115,7 @@ const Navbar = () => {
                 fontWeight: "bold",
                 cursor: "pointer", // Makes the text clickable
               }}
-              onClick={() => navigate("/")} // Navigate to Home when clicked
+              onClick={handleHomeClick} // Navigate to Home when clicked
             >
               EASY JOB
             </Typography>
@@ -124,7 +140,13 @@ const Navbar = () => {
                       transition: "all 0.3s",
                     },
                   }}
-                  onClick={() => navigate(item.path)}
+                  onClick={() => {
+                    if (item.label === "Home") {
+                      handleHomeClick(); // Navigate to home if Home is clicked
+                    } else {
+                      scrollToSection(item.id); // Scroll to other sections
+                    }
+                  }}
                 >
                   {item.label}
                 </Button>
@@ -176,17 +198,17 @@ const Navbar = () => {
       </HideOnScroll>
 
       {/* Drawer for Mobile */}
-      <Drawer
-        anchor="left"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-      >
+      <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
         <List>
           {filteredMenuItems.map((item) => (
             <ListItem key={item.label} disablePadding>
               <ListItemButton
                 onClick={() => {
-                  navigate(item.path);
+                  if (item.label === "Home") {
+                    handleHomeClick(); // Navigate to home if Home is clicked
+                  } else {
+                    scrollToSection(item.id); // Scroll to other sections
+                  }
                   handleDrawerToggle();
                 }}
                 sx={{
@@ -203,12 +225,8 @@ const Navbar = () => {
         </List>
       </Drawer>
 
-      <Box
-        sx={{
-          marginTop: `${marginTop}px`,
-          display:"none",
-        }}
-      ></Box>
+      {/* Margin to prevent content overlap */}
+      <Box sx={{ marginTop: `${marginTop}px`, display: "none" }}></Box>
     </>
   );
 };

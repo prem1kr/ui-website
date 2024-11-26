@@ -5,6 +5,9 @@ import { Card } from '@mui/joy'; // Assuming Card and AspectRatio are from Joy U
 import AspectRatio from '@mui/joy/AspectRatio';
 
 const clients = [
+  { id: 1, name: "Webtuks" },
+  { id: 2, name: "Local Konnect" },
+  { id: 3, name: "Another Client" },
   { name: 'Tech Mahindra', logo: 'mahindra.png', description: 'Leading IT company' },
   { name: 'Abacus', logo: 'abacus.png', description: 'Finance solutions provider' },
   { name: 'DortexAI', logo: 'dortexai.png', description: 'AI-driven technology' },
@@ -25,7 +28,10 @@ const clients = [
   { name: 'Local Konnect', logo: 'L&k.png', description: 'Local business network' },
 ];
 
+
 function Clients() {
+ 
+
   const scrollRef = useRef();
 
   // Auto-scroll every 3 seconds
@@ -47,7 +53,12 @@ function Clients() {
   };
 
   return (
-    <Box sx={{ overflow: 'hidden', maxWidth: '1400px', margin: 'auto', position: 'relative', height: '60vh' }}>
+
+    
+    <Box
+    id="clients" // ID to scroll to this section
+
+     sx={{ overflow: 'hidden', maxWidth: '1400px', margin: 'auto', position: 'relative', height: '60vh' }}>
       <Typography
         variant="h4"
         gutterBottom
@@ -141,6 +152,7 @@ function Clients() {
       </IconButton>
     </Box>
   );
+  
 }
 
 export default Clients;

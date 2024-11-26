@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
@@ -22,7 +22,17 @@ const fadeInUp = keyframes`
 `;
 
 const SignupPage = () => {
-  const navigate = useNavigate(); // Create a navigate instance
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    console.log({ email, password, role });
+    // After successful signup, navigate to the verification page
+    navigate("/verification-code");
+  };
 
   return (
     <CssVarsProvider>
@@ -36,6 +46,8 @@ const SignupPage = () => {
             height: "100%",
             fontFamily: "Roboto, sans-serif",
             overflow: "hidden", // Prevent scrolling on the page
+            backgroundColor:"white"
+
           },
         }}
       />
@@ -46,11 +58,11 @@ const SignupPage = () => {
           width: "100%",
           height: "100vh",
           display: "flex",
-          flexDirection: { xs: "column", sm: "row" }, // Stack form and image on mobile, side by side on larger screens
+          flexDirection: { xs: "column", sm: "row" },
           alignItems: "center",
           justifyContent: "center",
-          overflow: "hidden", // Prevent scrolling within this container
-          gap: { xs: 2, sm: "5%", md: "10%" }, // Adjust gap between image and form based on screen size
+          overflow: "hidden",
+          gap: { xs: 2, sm: "5%", md: "10%" },
         }}
       >
         {/* Left Image */}
@@ -62,9 +74,9 @@ const SignupPage = () => {
             objectFit: "cover",
             borderRadius: "8px",
             backgroundColor: "white",
-            width: { xs: "80%", sm: "450px", md: "500px", lg: "600px" }, // Responsive image width
-            height: { xs: "250px", sm: "300px", md: "400px", lg: "500px" }, // Responsive image height
-            maxWidth: "100%", // Prevent image overflow
+            width: { xs: "80%", sm: "450px", md: "500px", lg: "600px" },
+            height: { xs: "250px", sm: "300px", md: "400px", lg: "500px" },
+            maxWidth: "100%",
           }}
         />
 
@@ -73,64 +85,86 @@ const SignupPage = () => {
           sx={{
             width: "100%",
             maxWidth: 350,
-            padding: { xs: 4, sm: 4, md: 5 }, // Responsive padding
+            padding: { xs: 4, sm: 4, md: 5 },
             display: "flex",
             flexDirection: "column",
             backgroundColor: "transparent",
             gap: 2,
             textAlign: "center",
             animation: `${fadeInUp} 1s ease-out`,
-            marginTop: { xs: 2, sm: 0 }, // Adjust margin top on smaller screens
+            marginTop: { xs: 2, sm: 0 },
           }}
           variant="soft"
         >
           {/* Signup Form Content */}
-          <Box sx={{ flex: 1 }}>
+          <form onSubmit={handleSignup}>
             <Typography level="h3" component="h1" sx={{ mb: 1 }}>
               Sign Up
             </Typography>
-            <Typography level="body-sm" sx={{ color: "text.secondary", mb: 2 }}></Typography>
 
             <FormControl>
               <FormLabel>Email</FormLabel>
               <Input
                 name="email"
                 type="email"
+                value={email}
                 placeholder="johndoe@email.com"
+                onChange={(e) => setEmail(e.target.value)}
                 sx={{
                   borderColor: "neutral.outlinedBorder",
                   "&:hover": { borderColor: "primary.solidHoverBg" },
                 }}
+                required
               />
             </FormControl>
+
             <FormControl>
               <FormLabel>Password</FormLabel>
               <Input
                 name="password"
                 type="password"
+                value={password}
                 placeholder="Create a password"
+                onChange={(e) => setPassword(e.target.value)}
                 sx={{
                   borderColor: "neutral.outlinedBorder",
                   "&:hover": { borderColor: "primary.solidHoverBg" },
                 }}
+                required
               />
             </FormControl>
+
             <FormControl>
-              <FormLabel>
-                <input type="checkbox" /> I agree to the terms and conditions
-              </FormLabel>
+              <FormLabel>Role</FormLabel>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                style={{
+                  padding: "8px",
+                  borderRadius: "4px",
+                  borderColor: "neutral.outlinedBorder",
+                  width: "100%",
+                }}
+                required
+              >
+                <option value="">Select Role</option>
+                <option value="admin">Company</option>
+                <option value="user">Job Seeker</option>
+              </select>
             </FormControl>
+
             <Button
+              type="submit"
               sx={{
                 mt: 2,
                 width: "100%",
                 backgroundColor: "primary.solidBg",
                 "&:hover": { backgroundColor: "primary.solidHoverBg" },
               }}
-              onClick={() => navigate("/verification")} // Navigate to VerificationPage
             >
               Sign Up
             </Button>
+
             <Typography
               fontSize="sm"
               sx={{ alignSelf: "center", mt: 2, color: "text.secondary" }}
@@ -138,7 +172,7 @@ const SignupPage = () => {
               Already have an account?{" "}
               <Button
                 variant="text"
-                onClick={() => navigate("/login")} // Navigate to LoginPage
+                onClick={() => navigate("/login")}
                 sx={{
                   color: "primary.solidBg",
                   textTransform: "none",
@@ -149,7 +183,7 @@ const SignupPage = () => {
                 Log in
               </Button>
             </Typography>
-          </Box>
+          </form>
         </Sheet>
       </Box>
     </CssVarsProvider>

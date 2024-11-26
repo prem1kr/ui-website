@@ -14,9 +14,9 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from './components/LoginPage/LoginPage';
 import SignupPage from './components/SignupPage/SignupPage';
 import { Home } from '@mui/icons-material';
-import VerificationPage from './components/VerificationPage/VerificationPage';
 import Process from './components/Process/Process';
 import TrustedPage from './components/TrustedPage/TrustedPages';
+import VerificationCodePage from './components/VerificationCodePage/VerificationCodePage';
 
 
 const App = () => {
@@ -34,7 +34,7 @@ const App = () => {
         <Route path="/services" element={<Process/>} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/verification" element={<VerificationPage/>} />
+        <Route path="/verification-code" element={<VerificationCodePage/>} />
         {/* Add other routes here */}
       </Routes>
     </div>

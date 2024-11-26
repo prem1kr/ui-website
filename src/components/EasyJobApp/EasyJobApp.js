@@ -31,14 +31,14 @@ const DownloadPage = () => {
           <Typography
             variant="h4"
             gutterBottom
-            sx={{ fontSize: { xs: "20px", md: "32px" } }}
+            sx={{ fontSize: { xs: "20px", md: "32px",position:"relative",marginTop:"5%" } }}
           >
             Download Easy Job App
           </Typography>
           <Typography
             variant="body1"
             mb={2}
-            sx={{ fontSize: { xs: "14px", md: "16px" } }}
+            sx={{ fontSize: { xs: "14px", md: "16px",position:"relative",marginTop:"5%" } }}
           >
             - Resume Build assistance
             <br />
@@ -50,7 +50,7 @@ const DownloadPage = () => {
             sx={{
               display: "flex",
               gap: "10px",
-              justifyContent: { xs: "center", md: "flex-start" },
+              justifyContent: { xs: "center", md: "flex-start",position:"relative",marginTop:"5%" },
             }}
           >
             <img
@@ -92,6 +92,8 @@ const DownloadPage = () => {
               marginBottom: "20px",
               backgroundColor: "transparent",
               borderRadius: "20px",
+              position:"relative",
+              marginTop:"10%"
             }}
           />
           <Typography

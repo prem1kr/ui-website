@@ -9,7 +9,7 @@ const WelcomePage = () => {
       sx={{
         backgroundColor: '#D1ECFF', // Light blue background
         padding: { xs: '1rem', md: '5rem' }, // Adjusted padding for smaller screens
-        minHeight: '85vh',
+        minHeight: '75vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -19,8 +19,8 @@ const WelcomePage = () => {
         {/* Left Section */}
         <Grid item xs={12} md={6}>
           <Box>
-            <Box display="flex" alignItems="center" mb={2}>
-              <SearchIcon sx={{ fontSize: '2rem', color: '#1976d2' }} />
+            <Box display="flex" alignItems="center" mb={1}>
+              <SearchIcon sx={{ fontSize: '3rem', color: '#1976d2' }} />
               <Typography
                 variant="h6"
                 sx={{ marginLeft: '0.5rem', color: '#1976d2', fontSize: { xs: '1rem', md: '1.25rem' } }}
@@ -64,7 +64,7 @@ const WelcomePage = () => {
         </Grid>
 
         {/* Right Section */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={10} md={6}>
           <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
             {/* Image */}
             <CardMedia
@@ -74,38 +74,19 @@ const WelcomePage = () => {
               sx={{
                 borderRadius: '1rem',
                 height: { xs: '250px', md: '400px' }, // Adjust height for mobile
-                width: { xs: '100%', md: '400px' }, // Adjust width for mobile
-                objectFit: 'cover',
+                width: { xs: '120%', md: '600px' }, // Adjust width for mobile
+                maxWidth:'800px',
+                
                 
               }}
+              
             />
-            {/* Icons */}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '20%',
-                right: '70%',
-                backgroundColor: '#fff',
-                padding: '0.5rem',
-                borderRadius: '50%',
-                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-            </Box>
-            <Box
-              sx={{
-                position: 'absolute',
-                bottom: '65%',
-                right: '20%',
-                backgroundColor: '#fff',
-                padding: '0.5rem',
-                borderRadius: '50%',
-                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-            </Box>
-          </Box>
-        </Grid>
+           
+          
+</Box>
+           
+         
+      </Grid>
 
         {/* Bottom Icons */}
         <Box

@@ -2,12 +2,16 @@ import React from "react";
 import { Box, Grid, Typography, CardMedia } from "@mui/material";
 
 const About = () => {
+ 
   return (
+    
     <Box
+    id="about" // ID to scroll to this section
+       
       sx={{
         backgroundColor: "#FFFFFF",
-        padding: { xs: "2rem", md: "4rem" }, // Adjust padding for small and large screens
-        minHeight: "100vh",
+        padding: { xs: "1rem", md: "2rem" }, // Adjust padding for small and large screens
+        minHeight: "90vh",
         display:"flex",
         justifyContent:"center",
         alignItems:"center"
@@ -16,10 +20,10 @@ const About = () => {
     >
       <Grid
         container
-        spacing={4}
+        spacing={1}
         alignItems="center"
         sx={{
-          maxWidth: "1200px",
+          maxWidth: "1220px",
           margin: "0 auto",
         }}
       >
@@ -35,6 +39,8 @@ const About = () => {
               width: "100%",
               height: "auto",
               objectFit: "cover", // Ensures the image covers the section without distorting
+              position:"relative",
+              left:"-5%"
             }}
           />
         </Grid>
@@ -42,7 +48,7 @@ const About = () => {
         {/* Right Section - Text Content */}
         <Grid item xs={12} md={6}>
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{
               fontWeight: "bold",
               color: "#333",
@@ -58,9 +64,9 @@ const About = () => {
             sx={{
               color: "#555",
               lineHeight: "1.8",
-              marginBottom: "1.5rem",
+              marginBottom: "1.rem",
               textAlign: { xs: "center", md: "left" },
-              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
+              fontSize: { xs: "1rem", md: "1rem" }, // Adjust font size for mobile
             }}
           >
             "We are a modern recruitment platform dedicated to bridging the gap
@@ -88,7 +94,7 @@ const About = () => {
               lineHeight: "1.8",
               marginBottom: "1rem",
               textAlign: { xs: "center", md: "left" },
-              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
+              fontSize: { xs: "1rem", md: "1rem" }, // Adjust font size for mobile
             }}
           >
             "For companies, we offer an end-to-end hiring solution that
@@ -117,7 +123,7 @@ const About = () => {
               lineHeight: "1.8",
               marginBottom: "1rem",
               textAlign: { xs: "center", md: "left" },
-              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
+              fontSize: { xs: "1rem", md: "1rem" }, // Adjust font size for mobile
             }}
           >
             "For job seekers, our platform provides personalized job
@@ -144,7 +150,7 @@ const About = () => {
               color: "#555",
               lineHeight: "1.8",
               textAlign: { xs: "center", md: "left" },
-              fontSize: { xs: "1rem", md: "1.2rem" }, // Adjust font size for mobile
+              fontSize: { xs: "1rem", md: "1rem" }, // Adjust font size for mobile
             }}
           >
             "With our innovative approach, we aim to create a seamless

@@ -1,21 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, TextField, Grid, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { keyframes } from "@mui/system";
 
-const VerificationPage = () => {
-  const navigate = useNavigate(); // Create a navigate instance
+// Animation keyframes
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const slideInLeft = keyframes`
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+const scaleOnFocus = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+`;
+
+const VerificationCodePage= () => {
+  const [code, setCode] = useState(""); // State to hold the verification code
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Prevent scrolling by applying overflow: hidden to both html and body
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
-    // Clean up to reset overflow style when the component is unmounted
     return () => {
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const handleVerify = (e) => {
+    e.preventDefault();
+    // Mock verification process
+    console.log("Code verified:", code);
+    navigate("/login");
+  };
 
   return (
     <Box
@@ -24,8 +61,9 @@ const VerificationPage = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        background: "linear-gradient(to bottom, #ffffff, #f0f4f8)",
-        overflow: "hidden", // Prevent scrolling on the page
+        backgroundColor:"white",
+        overflow: "hidden",
+        animation: `${fadeIn} 1s ease-out`, // Page fade-in effect
       }}
     >
       <Grid
@@ -34,7 +72,8 @@ const VerificationPage = () => {
           width: "100%",
           borderRadius: "8px",
           overflow: "hidden",
-          backgroundColor: "white",
+         
+          animation: `${fadeIn} 1.5s ease-out`, // Grid fade-in effect
         }}
       >
         {/* Left Section with Image */}
@@ -44,17 +83,14 @@ const VerificationPage = () => {
           md={5}
           sx={{
             display: "flex",
-            flexWrap: "wrap", // Allow the input fields to wrap on smaller screens
-            justifyContent: "center", // Center image on mobile
+            justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "transparent",
-            position: "relative",
-            left: "15%",
-            padding: { xs: "20px", sm: "20px", md: "40px" }, // Adjust padding for better spacing
+            padding: { xs: "20px", sm: "20px", md: "40px" },
+            animation: `${slideInLeft} 1s ease-out`, // Image slide-in effect
           }}
         >
           <img
-            src="./verification.png" // Replace with the correct path to your image
+            src="./verification.png"
             alt="Verification"
             style={{
               width: "100%",
@@ -68,7 +104,7 @@ const VerificationPage = () => {
         <Grid
           item
           xs={12}
-          md={7} // Take up more space on larger screens
+          md={7}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -78,10 +114,11 @@ const VerificationPage = () => {
             maxWidth: "600px",
             textAlign: "center",
             justifyContent: "center",
-            height: "80%", // Ensure the form is vertically centered
+            height: "80%",
             position: "relative",
             top: "10%",
-            overflow: "hidden", // Prevent scrolling within the form area
+            overflow: "hidden",
+            animation: `${fadeIn} 1.5s ease-out`, // Form fade-in effect
           }}
         >
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
@@ -99,7 +136,7 @@ const VerificationPage = () => {
               display: "flex",
               justifyContent: "center",
               gap: 1,
-              flexWrap: "wrap", // Allow the input fields to wrap on smaller screens
+              flexWrap: "wrap",
             }}
           >
             {Array(6)
@@ -117,6 +154,17 @@ const VerificationPage = () => {
                       fontSize: "15px",
                     },
                   }}
+                  value={code[index] || ""}
+                  onChange={(e) => {
+                    const newCode = [...code];
+                    newCode[index] = e.target.value;
+                    setCode(newCode.join(""));
+                  }}
+                  sx={{
+                    "&:focus": {
+                      animation: `${scaleOnFocus} 0.2s forwards`, // Focus animation
+                    },
+                  }}
                 />
               ))}
           </Box>
@@ -132,9 +180,12 @@ const VerificationPage = () => {
               margin: "10px",
               "&:hover": {
                 backgroundColor: "#0056b3",
+                transform: "scale(1.05)", // Button scale effect
+                transition: "transform 0.2s ease",
               },
-              width: "60%", // Ensure button stretches across the form on mobile
+              width: "60%",
             }}
+            onClick={handleVerify} // Handle verification on button click
           >
             Verify Now
           </Button>
@@ -162,4 +213,4 @@ const VerificationPage = () => {
   );
 };
 
-export default VerificationPage;
+export default VerificationCodePage;
